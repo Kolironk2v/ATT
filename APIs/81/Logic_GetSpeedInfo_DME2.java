@@ -222,7 +222,7 @@ public class Logic extends WebServiceUserCode {
 			/*   GENERATE QUERY    */
 			/***********************/
 			if (!k2_isNullorEmptyString(i_dwspeed)) {
-				conditions.append(" AND s.dw_speed = " + i_dwspeed);
+				conditions.append(i_srvabbr + " AND s.dw_speed = " + i_dwspeed);
 			}
 
 			if (!k2_isNullorEmptyString(i_upspeed)) {

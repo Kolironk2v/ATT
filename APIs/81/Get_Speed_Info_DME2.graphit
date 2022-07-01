@@ -1,0 +1,77 @@
+{
+  "name": "getSpeeddataResponse",
+  "serializerSettings": [
+    {
+      "set": "nice",
+      "value": "true"
+    }
+  ],
+  "children": [
+    {
+      "name": "xmlns",
+      "type": "string",
+      "code": "http://ccrr.att.com/getspeedinfo_dme2.xsd",
+      "attribute": true
+    },
+    {
+      "name": "xmlns:xdb",
+      "type": "string",
+      "code": "http://xmlns.oracle.com/xdb",
+      "attribute": true
+    },
+    {
+      "name": "getSpeeddataDME2ResponseInfo",
+      "type": "sqlNonPrepared",
+      "code": "select s.dw_speed as dwSpeed, s.up_speed as upSpeed, s.srv_desc as srvDesc,\ns.device_type as deviceType, s.class_of_srv as classOfSrv\nFROM CSIDATA.CSIDATA_CQ_EQT_SPEEDS s where s.srv_abbr = ${conditions}",
+      "entryTag": "",
+      "children": [
+        {
+          "name": "dwSpeed",
+          "type": "variable",
+          "code": "dwSpeed"
+        },
+        {
+          "name": "upSpeed",
+          "type": "variable",
+          "code": "upSpeed"
+        },
+        {
+          "name": "srvDesc",
+          "type": "variable",
+          "code": "srvDesc"
+        },
+        {
+          "name": "deviceType",
+          "type": "variable",
+          "code": "deviceType"
+        },
+        {
+          "name": "classOfSrv",
+          "type": "variable",
+          "code": "classOfSrv"
+        }
+      ]
+    },
+    {
+      "name": "ProcResponse",
+      "children": [
+        {
+          "name": "code",
+          "type": "string",
+          "code": "0"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "code": "Success"
+        }
+      ]
+    }
+  ],
+  "params": [
+    {
+      "name": "conditions",
+      "dataType": "String"
+    }
+  ]
+}
