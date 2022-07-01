@@ -157,7 +157,7 @@ public class Logic extends WebServiceUserCode {
 
 
 	@webService(path = "", verb = {MethodType.GET, MethodType.POST, MethodType.PUT, MethodType.DELETE}, version = "1", isRaw = true, isCustomPayload = false, produce = {Produce.XML}, elevatedPermission = false)
-	public static Object GetSpeedInfo_DME2(String i_requestername, String i_requestercomponentname, String i_requestermethodname, String i_requesterclienthostname, String i_requesterapplicationname, String i_unique_transaction_id, String i_conversation_id, String i_srvabbr, String i_dwspeed, String i_upspeed) throws Exception {
+		public static Object GetSpeedInfo_DME2(String i_requestername, String i_requestercomponentname, String i_requestermethodname, String i_requesterclienthostname, String i_requesterapplicationname, String i_unique_transaction_id, String i_conversation_id, String i_srvabbr, String i_dwspeed, String i_upspeed) throws Exception {
 		/******************************************************************************************************
 		GetSpeedInfo_DME2
 		---------------------------------
@@ -250,7 +250,7 @@ public class Logic extends WebServiceUserCode {
 			/***********************/
 			if (!result.toString().contains("dwSpeed")) {
 				vErrorId = "20001";
-				result =  raise_GetGenericWsError(vErrorId, "GetSpeedInfoDME2Response", "http://ccrr.att.com/getSvcAccountEventDME2Response.xsd", "http://xmlns.oracle.com/xdb", null, "Proc");
+				result =  raise_GetGenericWsError(vErrorId, vRespInfo, pXsdUrl, pUrl, null, proc);
 			}
 
 			return result;
@@ -263,7 +263,7 @@ public class Logic extends WebServiceUserCode {
 			vLineNumber = fnGetStackElements(ex, "LineNumber");
 			vProgramName = fnGetStackElements(ex, "FileName");
 			vErrorId = "9995";
-			result = raise_GetGenericWsError(vErrorId, "getSvcAccountEventDME2Response", "http://ccrr.att.com/getSvcAccountEventDME2Response.xsd", "http://xmlns.oracle.com/xdb", vException, "Proc");
+			result = raise_GetGenericWsError(vErrorId, vRespInfo, pXsdUrl, pUrl, vException, proc);
 			return result;
 		}
 		finally {
