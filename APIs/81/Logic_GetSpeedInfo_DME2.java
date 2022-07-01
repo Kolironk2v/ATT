@@ -237,8 +237,9 @@ public class Logic extends WebServiceUserCode {
 			graphitParams.put("conditions",conditions.toString());
 
 			String accept = request().getHeader("Accept");
-			if(accept.contains("*"))
+			if(accept.contains("*")) {
 				accept = "application/xml";
+			}
 			final Serializer.Type type = UserCodeDelegate.graphitFormat(accept);
 			final StringWriter writer = new StringWriter();
 			GraphitPool.Entry entry = getLuType().graphitPool().get("Get_Speed_Info_DME2.graphit");
