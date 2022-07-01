@@ -213,7 +213,7 @@ public class Logic extends WebServiceUserCode {
 			if (k2_isNullorEmptyString(i_srvabbr)) {
 				fabricErrorID = "125";
 				vSeverity = "CRITICAL";
-				vLineNumber = "231";
+				vLineNumber = "98";
 				vTwinningResponse = raise_GetGenericWsErrorV2(fabricErrorID, vRespInfo, pXsdUrl, pUrl, vErrMsg, proc, xForm);
 				return vTwinningResponse;
 			}
@@ -249,7 +249,7 @@ public class Logic extends WebServiceUserCode {
 			/*CHECK EMPTY DATA SET */
 			/***********************/
 			if (!result.toString().contains("dwSpeed")) {
-				vErrorId = "20001";
+				vErrorId = "99";
 				result =  raise_GetGenericWsError(vErrorId, vRespInfo, pXsdUrl, pUrl, null, proc);
 			}
 
@@ -262,7 +262,7 @@ public class Logic extends WebServiceUserCode {
 			vException = new Object[]{ex.getMessage()};
 			vLineNumber = fnGetStackElements(ex, "LineNumber");
 			vProgramName = fnGetStackElements(ex, "FileName");
-			vErrorId = "9995";
+			vErrorId = "100";
 			result = raise_GetGenericWsError(vErrorId, vRespInfo, pXsdUrl, pUrl, vException, proc);
 			return result;
 		}
