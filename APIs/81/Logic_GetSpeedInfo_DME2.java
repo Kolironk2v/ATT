@@ -162,7 +162,7 @@ public class Logic extends WebServiceUserCode {
 		GetSpeedInfo_DME2
 		---------------------------------
 		Author	  : Liron Kolet ()
-		Description : To select data from sapmpsor_tenant_account table
+		Description : To select data from CSIDATA_CQ_EQT_SPEEDS table
 		
 		****************************Prologue****************************************************************
 		24/06/2022		 	''		Created new GetSpeedInfo_DME2 webservice.
