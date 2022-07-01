@@ -229,6 +229,7 @@ public class Logic extends WebServiceUserCode {
 				conditions.append(" AND s.up_speed = " + i_upspeed);
 			}
 
+
 			/***********************/
 			/*     FETCH DATA      */
 			/***********************/
