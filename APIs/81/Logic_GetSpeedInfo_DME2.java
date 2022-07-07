@@ -173,7 +173,6 @@ public class Logic extends WebServiceUserCode {
 		/***********************/		
 		String vRequestTimestamp = k2_currentTimeStampInFormat(FABRIC_TIME_FORMAT);
 		Object vTwinningResponse = "";
-		String l_where_str1 = "";
 		String vAdditionalInfo="";
 		Object result = "";
 		
@@ -191,16 +190,12 @@ public class Logic extends WebServiceUserCode {
 		
 		String fabricErrorID = "";
 		Db fabric = fabric();
-		boolean rollBack = false;
 		String vOtherinfo = "InputParm: " + i_srvabbr + "," + i_dwspeed + "," + i_upspeed;
-		Map<String, Object> cond = new HashMap<>();
+		Map<String, Object> conditions = new HashMap<>();
 		String pXsdUrl = "http://ccrr.att.com/getspeedinfo_dme2.xsd";
 		String pUrl = "http://xmlns.oracle.com/xdb";
 		String xForm = "xdb";
 		String proc = "Proc";
-		String vInput = "";
-		StringBuilder vGroupType = new StringBuilder();
-		StringBuilder conditions  = new StringBuilder();
 		
 		try {
 			/***********************/
@@ -217,24 +212,25 @@ public class Logic extends WebServiceUserCode {
 				vTwinningResponse = raise_GetGenericWsErrorV2(fabricErrorID, vRespInfo, pXsdUrl, pUrl, vErrMsg, proc, xForm);
 				return vTwinningResponse;
 			}
+			else {
+				conditions.put("i_srvabbr", i_srvabbr);
+			}
 
 			/***********************/
 			/*   GENERATE QUERY    */
 			/***********************/
 			if (!k2_isNullorEmptyString(i_dwspeed)) {
-				conditions.append(i_srvabbr + " AND s.dw_speed = " + i_dwspeed);
+				conditions.put("i_dwspeed", i_dwspeed);
 			}
 
 			if (!k2_isNullorEmptyString(i_upspeed)) {
-				conditions.append(" AND s.up_speed = " + i_upspeed);
+				conditions.put("i_upspeed", i_upspeed);
 			}
 
 			/***********************/
 			/*     FETCH DATA      */
 			/***********************/
 			log.info(conditions.toString());
-			Map<String, Object> graphitParams = new HashMap<>();
-			graphitParams.put("conditions",conditions.toString());
 
 			String accept = request().getHeader("Accept");
 			if(accept.contains("*")) {
@@ -242,8 +238,10 @@ public class Logic extends WebServiceUserCode {
 			}
 			final Serializer.Type type = UserCodeDelegate.graphitFormat(accept);
 			final StringWriter writer = new StringWriter();
+
 			GraphitPool.Entry entry = getLuType().graphitPool().get("Get_Speed_Info_DME2.graphit");
-			entry.get().run(graphitParams, type, writer);
+			entry.get().run(conditions, type, writer);
+			log.info(writer.toString());
 			result = writer.toString();
 
 			/***********************/
