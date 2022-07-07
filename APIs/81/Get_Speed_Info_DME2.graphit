@@ -20,35 +20,42 @@
       "attribute": true
     },
     {
-      "name": "getSpeeddataDME2ResponseInfo",
-      "type": "sqlNonPrepared",
-      "code": "select s.dw_speed as dwSpeed, s.up_speed as upSpeed, s.srv_desc as srvDesc,\ns.device_type as deviceType, s.class_of_srv as classOfSrv\nFROM CSIDATA.CSIDATA_CQ_EQT_SPEEDS s where s.srv_abbr = ${conditions}",
+      "type": "function",
+      "code": "var whereStmt = '';\nvar returnValue;\n\nwhereStmt = whereStmt.concat('where').concat(' s.srv_abbr = \\'', i_srvabbr, '\\' ');\n\nif (i_dwspeed != null) {\n  whereStmt = whereStmt.concat(' and').concat(' s.dw_speed = \\'', i_dwspeed, '\\' ');\n}\n\nif (i_upspeed != null) {\n  whereStmt = whereStmt.concat(' and').concat(' s.up_speed = \\'', i_upspeed, '\\' ');\n}\n\nreturnValue = null;",
       "entryTag": "",
       "children": [
         {
-          "name": "dwSpeed",
-          "type": "variable",
-          "code": "dwSpeed"
-        },
-        {
-          "name": "upSpeed",
-          "type": "variable",
-          "code": "upSpeed"
-        },
-        {
-          "name": "srvDesc",
-          "type": "variable",
-          "code": "srvDesc"
-        },
-        {
-          "name": "deviceType",
-          "type": "variable",
-          "code": "deviceType"
-        },
-        {
-          "name": "classOfSrv",
-          "type": "variable",
-          "code": "classOfSrv"
+          "name": "getSpeeddataDME2ResponseInfo",
+          "type": "sqlNonPrepared",
+          "code": "select s.dw_speed as dwSpeed, s.up_speed as upSpeed, s.srv_desc as srvDesc,\ns.device_type as deviceType, s.class_of_srv as classOfSrv\nFROM CSIDATA.CSIDATA_CQ_EQT_SPEEDS s \n${whereStmt}",
+          "entryTag": "",
+          "children": [
+            {
+              "name": "dwSpeed",
+              "type": "variable",
+              "code": "dwSpeed"
+            },
+            {
+              "name": "upSpeed",
+              "type": "variable",
+              "code": "upSpeed"
+            },
+            {
+              "name": "srvDesc",
+              "type": "variable",
+              "code": "srvDesc"
+            },
+            {
+              "name": "deviceType",
+              "type": "variable",
+              "code": "deviceType"
+            },
+            {
+              "name": "classOfSrv",
+              "type": "variable",
+              "code": "classOfSrv"
+            }
+          ]
         }
       ]
     },
